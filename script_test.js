@@ -74,13 +74,13 @@ describe('Slice 1: Clicking & Incrementing Coffee', function() {
   });
 
   describe('The clickCoffee function', function() {
-    xit('increments the coffee count by one', function() {
+    it('increments the coffee count by one', function() {
       const data = { coffee: 0, producers: [] };
       code.clickCoffee(data);
       expect(data.coffee).to.equal(1);
     });
     // Here, we're not checking to see that you call updateCoffeeView, the function you wrote above. However, it would be a good idea to do so!
-    xit('updates the coffee counter element with the incremented value', function() {
+    it('updates the coffee counter element with the incremented value', function() {
       const coffeeCounter = document.getElementById('coffee_counter');
       const data = { coffee: 50, producers: [] };
       code.clickCoffee(data);
