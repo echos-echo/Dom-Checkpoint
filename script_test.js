@@ -53,7 +53,7 @@ describe('Slice 1: Clicking & Incrementing Coffee', function() {
   });
   // First, we're having you write a function that will run every time the coffee icon is clicked. You don't need to attach this as an event listener, as we've done that for you near the bottom of `script.js`.
   describe('The updateCoffeeView function', function() {
-    xit('calls document.getElementById() or document.querySelector()', function() {
+    it('calls document.getElementById() or document.querySelector()', function() {
       const spyOnGetElementById = sinon.spy(document, 'getElementById');
       const spyOnQuerySelector = sinon.spy(document, 'querySelector');
       code.updateCoffeeView(); // this is where we actually run your code
@@ -64,7 +64,7 @@ describe('Slice 1: Clicking & Incrementing Coffee', function() {
       spyOnQuerySelector.restore();
     });
 
-    xit('updates the coffee counter to display the current coffee count', function() {
+    it('updates the coffee counter to display the current coffee count', function() {
       const coffeeCounter = document.getElementById('coffee_counter');
       code.updateCoffeeView(4000);
       expect(coffeeCounter.innerText).to.equal(4000);
