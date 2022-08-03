@@ -1,5 +1,4 @@
 /* eslint-disable no-alert */
-debugger;
 /**************
  *   SLICE 1
  **************/
@@ -19,11 +18,17 @@ function clickCoffee(data) {
  **************/
 
 function unlockProducers(producers, coffeeCount) {
-  // your code here
+  producers.forEach(producer => {
+    if (coffeeCount >= producer.price/2) {
+      producer.unlocked = true;
+    }
+  })
 }
 
 function getUnlockedProducers(data) {
-  // your code here
+  unlockProducers(data.producers, data.coffee);
+  const producers = data.producers.filter(producer => producer.unlocked === true ? true : false);
+  return producers;
 }
 
 function makeDisplayNameFromId(id) {

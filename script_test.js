@@ -117,7 +117,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       };
     });
 
-    xit("changes `unlocked` to `true` when the player's coffee count is equal to or larger than half the initial price of the producer", function() {
+    it("changes `unlocked` to `true` when the player's coffee count is equal to or larger than half the initial price of the producer", function() {
       data.coffee = 100;
       code.unlockProducers(data.producers, data.coffee);
       expect(data.producers[0].unlocked).to.equal(true);
@@ -125,7 +125,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       expect(data.producers[2].unlocked).to.equal(false);
     });
 
-    xit('does not set `unlocked` to `false` once a producer has been unlocked, even if the coffee count drops again', function() {
+    it('does not set `unlocked` to `false` once a producer has been unlocked, even if the coffee count drops again', function() {
       data.coffee = 100;
       code.unlockProducers(data.producers, data.coffee);
       data.coffee = 0;
@@ -149,7 +149,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       };
     });
 
-    xit('returns an array of producer objects', function() {
+    it('returns an array of producer objects', function() {
       const results = code.getUnlockedProducers(data);
       expect(results).to.be.an('array');
       results.forEach(element => {
@@ -160,7 +160,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       });
     });
 
-    xit('filters out producer objects that are not unlocked', function() {
+    it('filters out producer objects that are not unlocked', function() {
       let results = code.getUnlockedProducers(data);
       expect(results).to.have.lengthOf(1);
 
@@ -170,7 +170,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       expect(results).to.have.lengthOf(2);
     });
 
-    xit('does not mutate the data', function() {
+    it('does not mutate the data', function() {
       const snapshot = JSON.stringify(data);
       code.getUnlockedProducers(data);
       expect(JSON.stringify(data)).to.equal(snapshot);
