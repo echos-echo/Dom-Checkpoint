@@ -11,6 +11,7 @@ function updateCoffeeView(coffeeQty) {
 function clickCoffee(data) {
   data.coffee++;
   updateCoffeeView(data.coffee);
+  renderProducers(data);
 }
 
 /**************
@@ -32,7 +33,9 @@ function getUnlockedProducers(data) {
 }
 
 function makeDisplayNameFromId(id) {
-  // your code here
+  const name = id.split('_');
+  const final = name.map(word => word[0].toUpperCase() + word.substring(1));
+  return final.join(' ');
 }
 
 // You shouldn't need to edit this function-- its tests should pass once you've written makeDisplayNameFromId
@@ -57,11 +60,19 @@ function makeProducerDiv(producer) {
 }
 
 function deleteAllChildNodes(parent) {
-  // your code here
+  while(parent.hasChildNodes()) {
+    parent.removeChild(parent.lastChild);
+  }
 }
 
 function renderProducers(data) {
-  // your code here
+  const producerContainer = document.getElementById('producer_container');
+  unlockProducers(data.producers);
+  const unlocked = getUnlockedProducers(data);
+  deleteAllChildNodes(producerContainer);
+  unlocked.forEach(producer => {
+    producerContainer.appendChild(makeProducerDiv(producer));
+  })
 }
 
 /**************
@@ -69,27 +80,54 @@ function renderProducers(data) {
  **************/
 
 function getProducerById(data, producerId) {
-  // your code here
+  const producers = data.producers;
+  return producers.filter(producer => producer.id === producerId ? true : false)[0];
 }
 
 function canAffordProducer(data, producerId) {
-  // your code here
+  const producer = getProducerById(data, producerId);
+  if (data.coffee > producer.price) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function updateCPSView(cps) {
-  // your code here
+  let cpsElement = document.getElementById('cps');
+  cpsElement.innerText = cps;
 }
 
 function updatePrice(oldPrice) {
-  // your code here
+  return Math.floor(oldPrice * 1.25);
 }
 
 function attemptToBuyProducer(data, producerId) {
-  // your code here
+  const producer = getProducerById(data, producerId);
+  const affordable = canAffordProducer(data, producerId);
+  if (affordable) {
+    producer.qty++;
+    data.coffee -= producer.price;
+    producer.price = updatePrice(producer.price);
+    data.totalCPS += producer.cps;
+  }
+  return affordable;
 }
 
 function buyButtonClick(event, data) {
-  // your code here
+  if (event.target.tagName === 'BUTTON') {
+    const id = event.target.id.slice(4);
+    const success = canAffordProducer(data, id);
+    if (success) {
+      attemptToBuyProducer(data, id);
+      renderProducers(data);
+      updateCoffeeView(data.coffee);
+      updateCPSView(data.totalCPS);
+
+    } else {
+      window.alert("Not enough coffee!");
+    }
+  }
 }
 
 function tick(data) {
