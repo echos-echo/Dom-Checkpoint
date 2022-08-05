@@ -131,7 +131,13 @@ function buyButtonClick(event, data) {
 }
 
 function tick(data) {
-  // your code here
+  // increases coffee count by total CPS
+  // need to write new code to update data.coffee
+
+  // updates DOM to show the new coffee count
+  // use updateCoffeeView(data.coffee)
+
+  // updates DOM to reflect newly unlocked producers
 }
 
 /*************************
