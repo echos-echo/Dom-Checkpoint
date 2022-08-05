@@ -86,7 +86,7 @@ function getProducerById(data, producerId) {
 
 function canAffordProducer(data, producerId) {
   const producer = getProducerById(data, producerId);
-  if (data.coffee > producer.price) {
+  if (data.coffee >= producer.price) {
     return true;
   } else {
     return false;
@@ -131,13 +131,11 @@ function buyButtonClick(event, data) {
 }
 
 function tick(data) {
-  // increases coffee count by total CPS
-  // need to write new code to update data.coffee
+  data.coffee += data.totalCPS;
 
-  // updates DOM to show the new coffee count
-  // use updateCoffeeView(data.coffee)
+  updateCoffeeView(data.coffee);
 
-  // updates DOM to reflect newly unlocked producers
+  renderProducers(data)
 }
 
 /*************************
