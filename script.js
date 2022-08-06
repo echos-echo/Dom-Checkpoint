@@ -9,7 +9,12 @@ function updateCoffeeView(coffeeQty) {
 }
 
 function clickCoffee(data) {
-  data.coffee++;
+  if (superCaffeine(data)) {
+    data.coffee += Math.floor(data.totalCPS/50) + 1;
+  } else {
+    data.coffee++;
+  }
+  
   updateCoffeeView(data.coffee);
   renderProducers(data);
 }
@@ -67,7 +72,6 @@ function deleteAllChildNodes(parent) {
 
 function renderProducers(data) {
   const producerContainer = document.getElementById('producer_container');
-  unlockProducers(data.producers);
   const unlocked = getUnlockedProducers(data);
   deleteAllChildNodes(producerContainer);
   unlocked.forEach(producer => {
@@ -130,12 +134,29 @@ function buyButtonClick(event, data) {
   }
 }
 
+
+function autoSave(data) {
+  window.localStorage.setItem('data', JSON.stringify(data));
+}
+
 function tick(data) {
   data.coffee += data.totalCPS;
-
   updateCoffeeView(data.coffee);
 
-  renderProducers(data)
+  renderProducers(data);
+}
+
+// one time upgrade!
+// if at least 10 producers are unlocked,
+// each click will yield 
+function superCaffeine(data) {
+  if (getUnlockedProducers(data).length >= 3) {
+    const superCoffee = document.getElementById('super_caffeine');
+    superCoffee.style.display = 'block';
+    return true;
+  } else {
+    return false;
+  }
 }
 
 /*************************
